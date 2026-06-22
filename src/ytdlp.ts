@@ -68,7 +68,7 @@ export async function searchInvidious(query: string, limit = 20): Promise<Track[
 
 // ── yt-dlp stream URL resolver ──────────────────────────
 
-const YTDLP_PATH = '/usr/local/bin/yt-dlp';
+const YTDLP_PATH = 'yt-dlp';
 const YTDLP_TIMEOUT_MS = 15000;
 
 /**

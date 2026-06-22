@@ -11,12 +11,11 @@ RUN npm run build
 FROM node:24-alpine
 WORKDIR /app
 
-# Install ffmpeg (required by yt-dlp for audio extraction)
-RUN apk add --no-cache ffmpeg curl
+# Install ffmpeg + python3 + pip (required by yt-dlp)
+RUN apk add --no-cache ffmpeg curl python3 py3-pip
 
-# Download yt-dlp binary from official GitHub release
-RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
-    chmod +x /usr/local/bin/yt-dlp
+# Install yt-dlp via pip (more reliable on Alpine than standalone binary)
+RUN pip3 install --break-system-packages --no-cache-dir yt-dlp
 
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
